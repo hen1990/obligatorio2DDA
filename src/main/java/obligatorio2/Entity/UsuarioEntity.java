@@ -12,29 +12,40 @@ public class UsuarioEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column(nullable = false, length = 50)
     private String nombre;
+
     @Column(nullable = false, length = 50)
     private String apellido;
+
     @Column(unique = true, nullable = false, length = 50)
     private String email;
+
     @Column(nullable = false, length = 50)
     private String password;
+
     @Column(nullable = false, length = 50)
     private LocalDate fechaNacimiento;
+
     @Column(nullable = false, length = 50)
     private LocalDateTime fechaRegistro;
+
     @ManyToOne
-    @JoinColumn(name = "tipoUsuarioId")
+    @JoinColumn(name = "tipo_usuario_id")
     private TipoUsuarioEntity tipoUsuario;
+
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<CompraEntity> historialCompras;
 
     //Usuario premium
     private LocalDate fechaMembresia;
+
     private LocalDate fechaVencimientoMembresia;
+
     private Double descuento;
+
     @Column(unique = true)
     private String tarjetaCredito;
 

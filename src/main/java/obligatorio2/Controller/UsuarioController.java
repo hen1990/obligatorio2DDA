@@ -1,5 +1,6 @@
 package obligatorio2.Controller;
 
+import obligatorio2.EntitiesDTOs.UsuarioDTO;
 import obligatorio2.Entity.UsuarioEntity;
 import obligatorio2.Service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,21 +35,8 @@ public class UsuarioController {
         }
     }
 
-
-    @PutMapping
-    public ResponseEntity<?> upDateUsuario(@RequestBody UsuarioEntity persona) {
-
-        try {
-            return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.save(persona));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        }
-    }
-
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<UsuarioEntity>> getUsuarioById(@PathVariable Integer id) {
+    public ResponseEntity<UsuarioDTO> getUsuarioById(@PathVariable Integer id) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(usuarioService.getById(id));
         } catch (IllegalArgumentException e) {
@@ -59,9 +47,38 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UsuarioEntity>> getAllUsuarios() {
+    public ResponseEntity<List<UsuarioDTO>> getAllUsuarios() {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(usuarioService.getAll());
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> upDateUsuario(@PathVariable Integer id, @RequestBody UsuarioEntity persona) {
+        try {
+            UsuarioDTO usuarioDTO = usuarioService.getById(id);
+            if (usuarioDTO != null) {
+                persona.setId(id);
+                return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.save(persona));
+            }
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Usuario no encontrado.");
+
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteUsuario (@PathVariable Integer id) {
+        try {
+            usuarioService.deleteUsuario(id);
+            return ResponseEntity.status(HttpStatus.OK).body("Usuario eliminado!");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         } catch (Exception e) {

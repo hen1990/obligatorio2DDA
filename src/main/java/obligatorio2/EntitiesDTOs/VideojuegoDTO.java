@@ -1,15 +1,15 @@
 package obligatorio2.EntitiesDTOs;
 
-public class VideojuegoCompraDTO {
+public class VideojuegoDTO {
     private int id;
     private int cantidad;
 
-    public VideojuegoCompraDTO(int id, int cantidad) {
+    public VideojuegoDTO(int id, int cantidad) {
         this.id = id;
         this.cantidad = cantidad;
     }
 
-    public VideojuegoCompraDTO() {
+    public VideojuegoDTO() {
     }
 
     public int getId() {

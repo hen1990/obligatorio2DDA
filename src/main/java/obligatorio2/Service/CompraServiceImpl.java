@@ -1,10 +1,9 @@
 package obligatorio2.Service;
 
 import obligatorio2.EntitiesDTOs.CompraDTO;
-import obligatorio2.EntitiesDTOs.VideojuegoCompraDTO;
+import obligatorio2.EntitiesDTOs.VideojuegoDTO;
 import obligatorio2.Entity.CompraEntity;
 import obligatorio2.Entity.CompraVideojuegoEntity;
-import obligatorio2.Entity.VideojuegoEntity;
 import obligatorio2.Repository.CompraRepository;
 import obligatorio2.Repository.CompraVideojuegoRepository;
 import obligatorio2.Repository.VideojuegoRepository;
@@ -26,14 +25,14 @@ public class CompraServiceImpl implements CompraService {
     private VideojuegoRepository videojuegoRepository;
 
     public CompraEntity save(CompraEntity compraEntity) {
-        CompraEntity savedCompra = compraRepository.save(compraEntity);
+        CompraEntity compra = compraRepository.save(compraEntity);
 
         //Se guarda en la base de datos cada compraVideojuego
         for (CompraVideojuegoEntity compraVideojuego : compraEntity.getCompraVideojuegoEntityList()) {
-            compraVideojuego.setCompra(savedCompra);
+            compraVideojuego.setCompra(compra);
             compraVideojuegoRepository.save(compraVideojuego);
         }
-        return savedCompra;
+        return compra;
     }
 
     public Optional<CompraEntity> getById(Integer id) {
@@ -42,47 +41,77 @@ public class CompraServiceImpl implements CompraService {
 
     public CompraDTO getCompraDTOById(Integer id) {
         try {
-
             Optional<CompraEntity> compra = compraRepository.findById(id);
 
             List<CompraVideojuegoEntity> compraVideojuegoEntityList = compra.get().getCompraVideojuegoEntityList();
-            List<VideojuegoCompraDTO> videojuegoCompraDTOList = getVideojuegoCompraDTOS(compra.get());
+            List<VideojuegoDTO> videojuegoDTOList = getVideojuegoDTOS(compra.get());
 
-            return new CompraDTO(compra.get().getUsuario().getId(), videojuegoCompraDTOList);
+            return new CompraDTO(compra.get().getUsuario().getId(), compra.get().getFechaCompra(), compra.get().getTotalCompra(), videojuegoDTOList);
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public List<CompraDTO> getByUsuarioId (Integer id){
+        List<CompraEntity> compraEntityList = compraRepository.getByUsuarioId(id);
+        List<CompraDTO> compraDTOList = new ArrayList<>();
+
+        //Convierto Compra => CompraDTO / videojuego => videojuegoDTO
+        for (CompraEntity compraEntity : compraEntityList) {
+            List<VideojuegoDTO> videojuegosCompraDTOList = new ArrayList<>();
+            for (CompraVideojuegoEntity videojuegoEntity : compraEntity.getCompraVideojuegoEntityList()) {
+                VideojuegoDTO videojuegoDTO = new VideojuegoDTO(
+                        videojuegoEntity.getId(),
+                        videojuegoEntity.getCantidad()
+                );
+                videojuegosCompraDTOList.add(videojuegoDTO);
+            }
+
+            //Creo CompraDTO
+            CompraDTO compraDTO = new CompraDTO(
+                    compraEntity.getUsuario().getId(),
+                    compraEntity.getFechaCompra(),
+                    compraEntity.getTotalCompra(),
+                    videojuegosCompraDTOList
+            );
+
+            compraDTOList.add(compraDTO);
+        }
+        return compraDTOList;
     }
 
     public List<CompraEntity> getAll() {
         return compraRepository.findAll();
     }
 
-
     public List<CompraDTO> getAllCompraDTO() {
         List<CompraDTO> compraDTOList = new ArrayList<>();
         List<CompraEntity> compraEntityList = getAll();
         for (CompraEntity compra : compraEntityList) {
             int usuarioId = compra.getUsuario().getId();
-            List<VideojuegoCompraDTO> videojuegoCompraDTOList = getVideojuegoCompraDTOS(compra);
+            List<VideojuegoDTO> videojuegoDTOList = getVideojuegoDTOS(compra);
 
-            CompraDTO compraDTO = new CompraDTO(usuarioId, videojuegoCompraDTOList);
+            CompraDTO compraDTO = new CompraDTO(usuarioId,
+                    compra.getFechaCompra(),
+                    compra.getTotalCompra(),
+                    videojuegoDTOList);
             compraDTOList.add(compraDTO);
         }
         return compraDTOList;
     }
 
-    //Obtener cada juegoDTO por cada juego en la lista de compraVideojuego
-    private List<VideojuegoCompraDTO> getVideojuegoCompraDTOS(CompraEntity compra) {
-        List<VideojuegoCompraDTO> videojuegoCompraDTOList = new ArrayList<>();
+    //Obtener juegoDTO por cada juego en la lista de compraVideojuego
+    private List<VideojuegoDTO> getVideojuegoDTOS(CompraEntity compra) {
+        List<VideojuegoDTO> videojuegoDTOList = new ArrayList<>();
 
         for (CompraVideojuegoEntity compraVideojuego : compra.getCompraVideojuegoEntityList()) {
-            VideojuegoCompraDTO videojuegoCompraDTO = new VideojuegoCompraDTO(
+            VideojuegoDTO videojuegoDTO = new VideojuegoDTO(
                     compraVideojuego.getVideojuego().getId(),
                     compraVideojuego.getCantidad());
 
-            videojuegoCompraDTOList.add(videojuegoCompraDTO);
+            videojuegoDTOList.add(videojuegoDTO);
         }
-        return videojuegoCompraDTOList;
+        return videojuegoDTOList;
     }
 }

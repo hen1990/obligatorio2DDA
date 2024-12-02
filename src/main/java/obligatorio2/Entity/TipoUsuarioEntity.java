@@ -1,5 +1,6 @@
 package obligatorio2.Entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -10,8 +11,10 @@ public class TipoUsuarioEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column(unique = true)
     private String nombreTipoUsuario;
+
     @OneToMany (mappedBy = "tipoUsuario")
     private List<UsuarioEntity> usuarioEntityList;
 
@@ -38,4 +41,5 @@ public class TipoUsuarioEntity {
     public void setNombreTipoUsuario(String nombreTipoUsuario) {
         this.nombreTipoUsuario = nombreTipoUsuario;
     }
+
 }

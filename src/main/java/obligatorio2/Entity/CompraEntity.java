@@ -12,17 +12,22 @@ public class CompraEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     @JsonBackReference
     private UsuarioEntity usuario;
+
     @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL, orphanRemoval = true)
     @Column(nullable = false)
     private List<CompraVideojuegoEntity> compraVideojuegoEntityList;
+
     @Column(nullable = false)
     private LocalDateTime fechaCompra;
+
     @Column(nullable = false)
     private double totalCompra;
+
     @Column(nullable = false)
     private int cantidadTotal;
 

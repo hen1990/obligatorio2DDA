@@ -11,8 +11,10 @@ public class CategoriaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column(unique = true, nullable = false, length = 50)
     private String nombre;
+
     @OneToMany(mappedBy = "id")
     List<VideojuegoEntity> videojuegoList;
 

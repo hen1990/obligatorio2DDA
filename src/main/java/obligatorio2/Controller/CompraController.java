@@ -1,7 +1,7 @@
 package obligatorio2.Controller;
 
 import obligatorio2.EntitiesDTOs.CompraDTO;
-import obligatorio2.EntitiesDTOs.VideojuegoCompraDTO;
+import obligatorio2.EntitiesDTOs.VideojuegoDTO;
 import obligatorio2.Entity.CompraEntity;
 import obligatorio2.Entity.CompraVideojuegoEntity;
 import obligatorio2.Entity.UsuarioEntity;
@@ -43,11 +43,11 @@ public class CompraController {
             //Sumar el total del precio
             //Sumar cantidad total de juegos
             List<CompraVideojuegoEntity> compraVideojuegos = new ArrayList<>();
-            for (VideojuegoCompraDTO videojuegoCompraDTO : compraDTO.getVideojuegosCompraDTO()) {
-                Optional<VideojuegoEntity> videojuegoDto = videojuegoService.getById(videojuegoCompraDTO.getId());
+            for (VideojuegoDTO videojuegoDTO : compraDTO.getVideojuegos()) {
+                Optional<VideojuegoEntity> videojuegoDto = videojuegoService.getById(videojuegoDTO.getId());
                 if (videojuegoDto.isPresent()) {
                     VideojuegoEntity videojuego = videojuegoDto.get();
-                    int cantidad = videojuegoCompraDTO.getCantidad();
+                    int cantidad = videojuegoDTO.getCantidad();
 
                     CompraVideojuegoEntity compraVideojuego = new CompraVideojuegoEntity();
                     compraVideojuego.setCompra(compraEntity);

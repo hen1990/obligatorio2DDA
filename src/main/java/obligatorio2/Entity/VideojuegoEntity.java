@@ -1,6 +1,5 @@
 package obligatorio2.Entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -11,22 +10,29 @@ public class VideojuegoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column(unique = true, nullable = false, length = 20)
     private String codigoUnico;
+
     @Column(nullable = false, length = 50)
     private String nombre;
+
     private String descripcion;
+
     @Column(nullable = false)
     private double precio;
+
     @Column(nullable = false)
     private String imagen;
+
     private int cantidadCopias;
+
     @ManyToOne
     @JoinColumn(name = "categoria_id")
     private CategoriaEntity categoria;
+
     @OneToMany(mappedBy = "videojuego", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CompraVideojuegoEntity> compraVideojuegoEntityList;
-
 
     public VideojuegoEntity() {
     }

@@ -10,16 +10,22 @@ public class AdministradorEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column(nullable = false, length = 50)
     private String nombre;
+
     @Column(nullable = false, length = 50)
     private String apellido;
+
     @Column(unique = true, nullable = false, length = 50)
     private String email;
+
     @Column(nullable = false, length = 50)
     private String password;
+
     @Column(nullable = false)
     private LocalDate fechaNacimiento;
+
     @Column(nullable = false)
     private LocalDateTime fechaRegistro;
 

@@ -11,12 +11,15 @@ public class CompraVideojuegoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @ManyToOne
     @JoinColumn(name = "compra_id", nullable = false)
     private CompraEntity compra;
+
     @ManyToOne
     @JoinColumn(name = "videojuego_id", nullable = false)
     private VideojuegoEntity videojuego;
+
     @Column(nullable = false)
     private int cantidad;
 

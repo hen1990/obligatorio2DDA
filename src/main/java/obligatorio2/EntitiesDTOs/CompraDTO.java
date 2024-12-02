@@ -1,18 +1,22 @@
 package obligatorio2.EntitiesDTOs;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class CompraDTO {
     private int usuarioId;
-    private List<VideojuegoCompraDTO> videojuegosCompraDTO;
+    private LocalDateTime fechaCompra;
+    private double totalCompra;
+    private List<VideojuegoDTO> videojuegos;
 
-    public CompraDTO(int usuarioId, List<VideojuegoCompraDTO> videojuegosCompraDTO) {
+    public CompraDTO(int usuarioId, LocalDateTime fechaCompra, double totalCompra, List<VideojuegoDTO> videojuegos) {
         this.usuarioId = usuarioId;
-        this.videojuegosCompraDTO = videojuegosCompraDTO;
+        this.fechaCompra = fechaCompra;
+        this.totalCompra = totalCompra;
+        this.videojuegos = videojuegos;
     }
 
-    public CompraDTO() {
-    }
+    public CompraDTO() {}
 
     public int getUsuarioId() {
         return usuarioId;
@@ -22,12 +26,28 @@ public class CompraDTO {
         this.usuarioId = usuarioId;
     }
 
-    public List<VideojuegoCompraDTO> getVideojuegosCompraDTO() {
-        return videojuegosCompraDTO;
+    public LocalDateTime getFechaCompra() {
+        return fechaCompra;
     }
 
-    public void setVideojuegos(List<VideojuegoCompraDTO> videojuegosCompraDTO) {
-        this.videojuegosCompraDTO = videojuegosCompraDTO;
+    public void setFechaCompra(LocalDateTime fechaCompra) {
+        this.fechaCompra = fechaCompra;
+    }
+
+    public double getTotalCompra() {
+        return totalCompra;
+    }
+
+    public void setTotalCompra(double totalCompra) {
+        this.totalCompra = totalCompra;
+    }
+
+    public List<VideojuegoDTO> getVideojuegos() {
+        return videojuegos;
+    }
+
+    public void setVideojuegos(List<VideojuegoDTO> videojuegos) {
+        this.videojuegos = videojuegos;
     }
 }
 
