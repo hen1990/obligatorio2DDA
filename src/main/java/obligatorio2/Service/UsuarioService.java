@@ -12,6 +12,5 @@ public interface UsuarioService {
     UsuarioDTO getById (Integer id);
     List<UsuarioDTO> getAll();
     void deleteUsuario (Integer id);
-    Optional<UsuarioEntity> login(UsuarioEntity usuarioEntity) throws BadRequestException;
-
+    UsuarioDTO login(UsuarioEntity usuarioEntity) throws BadRequestException;
 }

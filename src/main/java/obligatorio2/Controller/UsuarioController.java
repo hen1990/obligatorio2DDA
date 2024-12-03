@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@CrossOrigin(origins = "http:/localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/usuario")
 public class UsuarioController {
 
@@ -86,15 +86,17 @@ public class UsuarioController {
         }
     }
 
-    /*
-    @PostMapping("/login")
+
+    @PostMapping ("/login")
     public ResponseEntity<?> login(@RequestBody UsuarioEntity usuarioEntity){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(usuarioService.login(usuarioEntity));
-        } catch (BadRequestException e) {
-            throw new RuntimeException(e);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se encontró usuario");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 
-     */
+
 }

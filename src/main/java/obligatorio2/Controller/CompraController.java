@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@CrossOrigin(origins = "http:/localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/compra")
 public class CompraController {
 
@@ -58,6 +58,7 @@ public class CompraController {
 
                     totalCompra += videojuego.getPrecio() * cantidad;
                     cantidadTotal += cantidad;
+                    videojuegoService.updateCantidadCopias(videojuegoDTO.getId(), cantidad);
                 } else {
                     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
                 }

@@ -87,11 +87,17 @@ public class UsuarioServiceImpl implements UsuarioService{
         usuario.ifPresent(usuarioEntity -> usuarioRepository.delete(usuarioEntity));
     }
 
-    public Optional<UsuarioEntity> login(UsuarioEntity usuarioEntity) throws BadRequestException {
-        if(usuarioRepository.findByEmailAndPassword(usuarioEntity.getEmail(), usuarioEntity.getPassword())){
-            return usuarioRepository.findById(usuarioEntity.getId());
+    public UsuarioDTO login(UsuarioEntity usuarioEntity) throws BadRequestException {
+        Optional<UsuarioEntity> usuario = usuarioRepository.findByEmailAndPassword(
+                usuarioEntity.getEmail(),
+                usuarioEntity.getPassword()
+        );
+
+        if (usuario.isPresent()) {
+            return getUsuarioDTO(usuario.get());
+        } else {
+            throw new BadRequestException("Credenciales incorrectas");
         }
-        throw new BadRequestException("Credenciales incorrectas");
     }
 
 }

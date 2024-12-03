@@ -14,6 +14,7 @@ public class AdministradorServiceImpl implements AdministradorService {
     private AdministradorRepository administradorRepository;
 
     public AdministradorEntity save(AdministradorEntity administradorEntity) {
+        administradorEntity.setRol("admin");
         return administradorRepository.save(administradorEntity);
     }
     public Optional<AdministradorEntity> getById (Integer id) {

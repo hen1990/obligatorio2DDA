@@ -29,7 +29,10 @@ public class AdministradorEntity {
     @Column(nullable = false)
     private LocalDateTime fechaRegistro;
 
-    public AdministradorEntity(int id, String nombre, String apellido, String email, String password, LocalDate fechaNacimiento, LocalDateTime fechaRegistro) {
+    @Column(nullable = false)
+    private String rol;
+
+    public AdministradorEntity(int id, String nombre, String apellido, String email, String password, LocalDate fechaNacimiento, LocalDateTime fechaRegistro, String rol) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -37,6 +40,7 @@ public class AdministradorEntity {
         this.password = password;
         this.fechaNacimiento = fechaNacimiento;
         this.fechaRegistro = LocalDateTime.now();
+        this.rol = rol;
     }
 
     public AdministradorEntity() { }
@@ -102,5 +106,13 @@ public class AdministradorEntity {
 
     public void setFechaRegistro(LocalDateTime fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 }

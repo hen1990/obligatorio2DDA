@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@CrossOrigin(origins = "http:/localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/tipoUsuario")
 public class TipoUsuarioController {
     @Autowired
