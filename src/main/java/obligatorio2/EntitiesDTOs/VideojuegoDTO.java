@@ -18,13 +18,14 @@ public class VideojuegoDTO {
     private int cantidadCopias;
     private CategoriaEntity categoria;
     List<CompraDTO> compraDTOList;
+    private Double descuento;
 
     public VideojuegoDTO(int id, int cantidad) {
         this.id = id;
         this.cantidad = cantidad;
     }
 
-    public VideojuegoDTO(int id, String codigoUnico, String nombre, String descripcion, double precio, String imagen, int cantidadCopias, CategoriaEntity categoria, List<CompraDTO> compraDTOList) {
+    public VideojuegoDTO(int id, String codigoUnico, String nombre, String descripcion, double precio, String imagen, int cantidadCopias, CategoriaEntity categoria, List<CompraDTO> compraDTOList, Double descuento) {
         this.id = id;
         this.codigoUnico = codigoUnico;
         this.nombre = nombre;
@@ -34,6 +35,7 @@ public class VideojuegoDTO {
         this.cantidadCopias = cantidadCopias;
         this.categoria = categoria;
         this.compraDTOList = compraDTOList;
+        this.descuento = descuento;
     }
 
     public VideojuegoDTO() {
@@ -109,5 +111,13 @@ public class VideojuegoDTO {
 
     public void setCategoria(CategoriaEntity categoria) {
         this.categoria = categoria;
+    }
+
+    public Double getDescuento() {
+        return descuento;
+    }
+
+    public void setDescuento(Double descuento) {
+        this.descuento = descuento;
     }
 }

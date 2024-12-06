@@ -1,5 +1,6 @@
 package obligatorio2.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.time.LocalDate;
@@ -36,15 +37,12 @@ public class UsuarioEntity {
     private TipoUsuarioEntity tipoUsuario;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
     private List<CompraEntity> historialCompras;
 
     //Usuario premium
     private LocalDate fechaMembresia;
 
     private LocalDate fechaVencimientoMembresia;
-
-    private Double descuento;
 
     @Column(unique = true)
     private String tarjetaCredito;
@@ -62,7 +60,7 @@ public class UsuarioEntity {
     }
 
     //Usuario premium
-    public UsuarioEntity(int id, String nombre, String apellido, String email, String password, LocalDate fechaNacimiento, LocalDateTime fechaRegistro, TipoUsuarioEntity tipoUsuario, LocalDate fechaMembresia, LocalDate fechaVencimientoMembresia, Double descuento, String tarjetaCredito) {
+    public UsuarioEntity(int id, String nombre, String apellido, String email, String password, LocalDate fechaNacimiento, LocalDateTime fechaRegistro, TipoUsuarioEntity tipoUsuario, LocalDate fechaMembresia, LocalDate fechaVencimientoMembresia, String tarjetaCredito) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -73,7 +71,6 @@ public class UsuarioEntity {
         this.tipoUsuario = tipoUsuario;
         this.fechaMembresia = fechaMembresia;
         this.fechaVencimientoMembresia = fechaVencimientoMembresia;
-        this.descuento = 0.2;
         this.tarjetaCredito = tarjetaCredito;
     }
 
@@ -176,14 +173,6 @@ public class UsuarioEntity {
 
     public void setFechaVencimientoMembresia(LocalDate fechaVencimientoMembresia) {
         this.fechaVencimientoMembresia = fechaVencimientoMembresia;
-    }
-
-    public Double getDescuento() {
-        return descuento;
-    }
-
-    public void setDescuento(Double descuento) {
-        this.descuento = descuento;
     }
 
     public String getTarjetaCredito() {

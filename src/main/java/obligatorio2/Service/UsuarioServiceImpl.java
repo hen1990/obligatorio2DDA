@@ -74,7 +74,6 @@ public class UsuarioServiceImpl implements UsuarioService{
                     compraDTOList,
                     usuario.getFechaMembresia(),
                     usuario.getFechaVencimientoMembresia(),
-                    usuario.getDescuento(),
                     usuario.getTarjetaCredito()
             );
         } catch (Exception e) {

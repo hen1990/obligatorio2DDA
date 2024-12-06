@@ -1,6 +1,7 @@
 package obligatorio2.Service;
 
 import obligatorio2.Entity.CategoriaEntity;
+import obligatorio2.Entity.VideojuegoEntity;
 import obligatorio2.Repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,20 +10,25 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CategoriaServiceImpl implements CategoriaService{
+public class CategoriaServiceImpl implements CategoriaService {
 
     @Autowired
     private CategoriaRepository categoriaRepository;
 
-    public CategoriaEntity save (CategoriaEntity categoriaEntity) {
+    public CategoriaEntity save(CategoriaEntity categoriaEntity) {
         return categoriaRepository.save(categoriaEntity);
     }
 
-    public Optional<CategoriaEntity> getById (Integer id) {
+    public Optional<CategoriaEntity> getById(Integer id) {
         return categoriaRepository.findById(id);
     }
 
-    public List<CategoriaEntity> getAll () {
+    public List<CategoriaEntity> getAll() {
         return categoriaRepository.findAll();
+    }
+
+    public void deleteCategoria(Integer id) {
+        Optional<CategoriaEntity> categoriaEntity = categoriaRepository.findById(id);
+        categoriaEntity.ifPresent(categoria -> categoriaRepository.delete(categoria));
     }
 }

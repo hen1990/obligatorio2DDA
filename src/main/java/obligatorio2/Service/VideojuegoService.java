@@ -11,6 +11,7 @@ public interface VideojuegoService {
     Optional<VideojuegoEntity> getById (Integer id);
     VideojuegoDTO getVideojuegoDTOById(Integer id);
     List<VideojuegoDTO> getAll ();
+    void deleteVideojuego(Integer id);
     void updateCantidadCopias(int id, int nuevaCantidad);
 
 }

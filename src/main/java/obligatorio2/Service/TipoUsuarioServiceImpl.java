@@ -1,6 +1,7 @@
 package obligatorio2.Service;
 
 import obligatorio2.Entity.TipoUsuarioEntity;
+import obligatorio2.Entity.VideojuegoEntity;
 import obligatorio2.Repository.TipoUsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,5 +25,10 @@ public class TipoUsuarioServiceImpl implements TipoUsuarioService {
 
     public List<TipoUsuarioEntity> getAll() {
         return tipoUsuarioRepository.findAll();
+    }
+
+    public void deleteTipoUsuario (Integer id) {
+        Optional<TipoUsuarioEntity> tipoUsuarioEntity = tipoUsuarioRepository.findById(id);
+        tipoUsuarioEntity.ifPresent(tipoUsuario -> tipoUsuarioRepository.delete(tipoUsuario));
     }
 }

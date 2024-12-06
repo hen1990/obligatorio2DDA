@@ -9,4 +9,5 @@ public interface TipoUsuarioService {
     TipoUsuarioEntity save(TipoUsuarioEntity tipoUsuario);
     Optional<TipoUsuarioEntity> getTipoUsuarioById(Integer id);
     List<TipoUsuarioEntity> getAll();
+    void deleteTipoUsuario(Integer id);
 }

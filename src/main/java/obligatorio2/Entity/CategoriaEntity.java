@@ -1,5 +1,6 @@
 package obligatorio2.Entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.persistence.GenerationType;
 import java.util.List;
@@ -7,7 +8,6 @@ import java.util.List;
 @Entity
 @Table(name = "categoria")
 public class CategoriaEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -15,8 +15,15 @@ public class CategoriaEntity {
     @Column(unique = true, nullable = false, length = 50)
     private String nombre;
 
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "categoria")
     List<VideojuegoEntity> videojuegoList;
+
+    public CategoriaEntity(int id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+    }
+
+    public CategoriaEntity() {}
 
     public int getId() {
         return id;
@@ -34,10 +41,4 @@ public class CategoriaEntity {
         this.nombre = nombre;
     }
 
-    public CategoriaEntity(int id, String nombre) {
-        this.id = id;
-        this.nombre = nombre;
-    }
-
-    public CategoriaEntity() {}
 }

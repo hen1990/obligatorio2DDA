@@ -19,7 +19,6 @@ public class UsuarioDTO {
     //Usuario premium
     private LocalDate fechaMembresia;
     private LocalDate fechaVencimientoMembresia;
-    private Double descuento;
     private String tarjetaCredito;
 
     public UsuarioDTO() {}
@@ -35,7 +34,7 @@ public class UsuarioDTO {
         this.historialCompras = historialCompras;
     }
 
-    public UsuarioDTO(int id, String nombre, String apellido, String email, LocalDate fechaNacimiento, LocalDateTime fechaRegistro, TipoUsuarioEntity tipoUsuario, List<CompraDTO> historialCompras, LocalDate fechaMembresia, LocalDate fechaVencimientoMembresia, Double descuento, String tarjetaCredito) {
+    public UsuarioDTO(int id, String nombre, String apellido, String email, LocalDate fechaNacimiento, LocalDateTime fechaRegistro, TipoUsuarioEntity tipoUsuario, List<CompraDTO> historialCompras, LocalDate fechaMembresia, LocalDate fechaVencimientoMembresia, String tarjetaCredito) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -46,7 +45,6 @@ public class UsuarioDTO {
         this.historialCompras = historialCompras;
         this.fechaMembresia = fechaMembresia;
         this.fechaVencimientoMembresia = fechaVencimientoMembresia;
-        this.descuento = descuento;
         this.tarjetaCredito = tarjetaCredito;
     }
 
@@ -128,14 +126,6 @@ public class UsuarioDTO {
 
     public void setFechaVencimientoMembresia(LocalDate fechaVencimientoMembresia) {
         this.fechaVencimientoMembresia = fechaVencimientoMembresia;
-    }
-
-    public Double getDescuento() {
-        return descuento;
-    }
-
-    public void setDescuento(Double descuento) {
-        this.descuento = descuento;
     }
 
     public String getTarjetaCredito() {

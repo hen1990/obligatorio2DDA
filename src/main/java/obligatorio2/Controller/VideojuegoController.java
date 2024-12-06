@@ -1,6 +1,8 @@
 package obligatorio2.Controller;
 
+import obligatorio2.EntitiesDTOs.UsuarioDTO;
 import obligatorio2.EntitiesDTOs.VideojuegoDTO;
+import obligatorio2.Entity.UsuarioEntity;
 import obligatorio2.Entity.VideojuegoEntity;
 import obligatorio2.Service.VideojuegoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +49,47 @@ public class VideojuegoController {
     public ResponseEntity<List<VideojuegoDTO>> getAll () {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(videojuegoService.getAll());
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> upDateVideojuego(@PathVariable Integer id, @RequestBody VideojuegoEntity videojuego) {
+        try {
+            Optional<VideojuegoEntity> videojuegoEntity = videojuegoService.getById(id);
+            if (videojuegoEntity.isPresent()) {
+                videojuegoEntity.get().setNombre(videojuego.getNombre());
+                videojuegoEntity.get().setDescripcion(videojuego.getDescripcion());
+                videojuegoEntity.get().setPrecio(videojuego.getPrecio());
+                videojuegoEntity.get().setImagen(videojuego.getImagen());
+                videojuegoEntity.get().setCantidadCopias(videojuego.getCantidadCopias());
+                videojuegoEntity.get().setCategoria(videojuego.getCategoria());
+                videojuegoEntity.get().setDescuento(videojuego.getDescuento());
+
+                return ResponseEntity.status(HttpStatus.CREATED).body(videojuegoService.save(videojuegoEntity.get()));
+            }
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Videojuego no encontrado.");
+
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteVideojuego (@PathVariable Integer id) {
+        try {
+            Optional<VideojuegoEntity> videojuegoEntity = videojuegoService.getById(id);
+            if (videojuegoEntity.isPresent()) {
+                videojuegoService.deleteVideojuego(id);
+                return ResponseEntity.status(HttpStatus.OK).body("VideoJuego eliminado!");
+            } else {
+                return ResponseEntity.status(HttpStatus.OK).body("VideoJuego no encontrado.");
+            }
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         } catch (Exception e) {

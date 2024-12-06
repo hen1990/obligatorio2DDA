@@ -9,4 +9,5 @@ public interface CategoriaService {
     CategoriaEntity save (CategoriaEntity categoriaEntity);
     Optional<CategoriaEntity> getById (Integer id);
     List<CategoriaEntity> getAll ();
+    void deleteCategoria (Integer id);
 }

@@ -3,6 +3,7 @@ package obligatorio2.Service;
 import obligatorio2.EntitiesDTOs.CompraDTO;
 import obligatorio2.EntitiesDTOs.VideojuegoDTO;
 import obligatorio2.Entity.CompraVideojuegoEntity;
+import obligatorio2.Entity.UsuarioEntity;
 import obligatorio2.Entity.VideojuegoEntity;
 import obligatorio2.Repository.CompraRepository;
 import obligatorio2.Repository.VideojuegoRepository;
@@ -21,11 +22,13 @@ public class VideojuegoServiceImpl implements VideojuegoService{
 
     public VideojuegoEntity save (VideojuegoEntity videojuegoEntity) {
         String codigo;
-        do {
-            codigo = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
-        } while (videojuegoRepository.existsByCodigoUnico(codigo));
+        if(videojuegoEntity.getCodigoUnico() == null) {
+            do {
+                codigo = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+            } while (videojuegoRepository.existsByCodigoUnico(codigo));
+            videojuegoEntity.setCodigoUnico(codigo);
+        }
 
-        videojuegoEntity.setCodigoUnico(codigo);
         return videojuegoRepository.save(videojuegoEntity);
     }
 
@@ -47,7 +50,8 @@ public class VideojuegoServiceImpl implements VideojuegoService{
                     videojuego.get().getImagen(),
                     videojuego.get().getCantidadCopias(),
                     videojuego.get().getCategoria(),
-                    compraDTOList
+                    compraDTOList,
+                    videojuego.get().getDescuento()
             );
             return videojuegoDTO;
         }
@@ -70,11 +74,17 @@ public class VideojuegoServiceImpl implements VideojuegoService{
                     videojuego.getImagen(),
                     videojuego.getCantidadCopias(),
                     videojuego.getCategoria(),
-                    compraDTOList
+                    compraDTOList,
+                    videojuego.getDescuento()
             );
             videojuegoDTOList.add(videojuegoDTO);
         }
         return videojuegoDTOList;
+    }
+
+    public void deleteVideojuego (Integer id) {
+        Optional<VideojuegoEntity> videojuego = videojuegoRepository.findById(id);
+        videojuego.ifPresent(videojuegoEntity -> videojuegoRepository.delete(videojuegoEntity));
     }
 
     public void updateCantidadCopias(int id, int cantidad) {

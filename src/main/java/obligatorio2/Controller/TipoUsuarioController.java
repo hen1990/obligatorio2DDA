@@ -1,6 +1,7 @@
 package obligatorio2.Controller;
 
 import obligatorio2.Entity.TipoUsuarioEntity;
+import obligatorio2.Entity.VideojuegoEntity;
 import obligatorio2.Service.TipoUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,6 +49,23 @@ public class TipoUsuarioController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteTipoUsuario (@PathVariable Integer id) {
+        try {
+            Optional<TipoUsuarioEntity> tipoUsuarioEntity = tipoUsuarioService.getTipoUsuarioById(id);
+            if (tipoUsuarioEntity.isPresent()) {
+                tipoUsuarioService.deleteTipoUsuario(id);
+                return ResponseEntity.status(HttpStatus.OK).body("TipoUsuario eliminado!");
+            } else {
+                return ResponseEntity.status(HttpStatus.OK).body("TipoUsuario no encontrado.");
+            }
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("TipoUsuario es uso.");
         }
     }
 

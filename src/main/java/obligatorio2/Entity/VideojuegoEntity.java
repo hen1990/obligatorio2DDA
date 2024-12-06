@@ -1,5 +1,7 @@
 package obligatorio2.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -26,6 +28,8 @@ public class VideojuegoEntity {
     private String imagen;
 
     private int cantidadCopias;
+
+    private Double descuento;
 
     @ManyToOne
     @JoinColumn(name = "categoria_id")
@@ -91,6 +95,14 @@ public class VideojuegoEntity {
 
     public void setCantidadCopias(int cantidadCopias) {
         this.cantidadCopias = cantidadCopias;
+    }
+
+    public Double getDescuento() {
+        return descuento;
+    }
+
+    public void setDescuento(Double descuento) {
+        this.descuento = descuento;
     }
 
     public CategoriaEntity getCategoria() {
