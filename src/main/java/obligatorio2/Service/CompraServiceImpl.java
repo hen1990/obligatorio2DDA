@@ -106,9 +106,20 @@ public class CompraServiceImpl implements CompraService {
         List<VideojuegoDTO> videojuegoDTOList = new ArrayList<>();
 
         for (CompraVideojuegoEntity compraVideojuego : compra.getCompraVideojuegoEntityList()) {
+            List<CompraDTO> compraDTOList = new ArrayList<>();
             VideojuegoDTO videojuegoDTO = new VideojuegoDTO(
-                    compraVideojuego.getVideojuego().getId(),
-                    compraVideojuego.getCantidad());
+            compraVideojuego.getVideojuego().getId(),
+                    compraVideojuego.getCantidad(),
+                    compraVideojuego.getVideojuego().getCodigoUnico(),
+                    compraVideojuego.getVideojuego().getNombre(),
+                    compraVideojuego.getVideojuego().getDescripcion(),
+                    compraVideojuego.getVideojuego().getPrecio(),
+                    compraVideojuego.getVideojuego().getImagen(),
+                    compraVideojuego.getVideojuego().getCantidadCopias(),
+                    compraVideojuego.getVideojuego().getCategoria(),
+                    compraDTOList,
+                    compraVideojuego.getVideojuego().getDescuento()
+            );
 
             videojuegoDTOList.add(videojuegoDTO);
         }

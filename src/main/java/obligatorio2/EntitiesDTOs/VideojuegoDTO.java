@@ -41,6 +41,20 @@ public class VideojuegoDTO {
     public VideojuegoDTO() {
     }
 
+    public VideojuegoDTO(int id, int cantidad, String codigoUnico, String nombre, String descripcion, double precio, String imagen, int cantidadCopias, CategoriaEntity categoria, List<CompraDTO> compraDTOList, Double descuento) {
+        this.id = id;
+        this.cantidad = cantidad;
+        this.codigoUnico = codigoUnico;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.imagen = imagen;
+        this.cantidadCopias = cantidadCopias;
+        this.categoria = categoria;
+        this.compraDTOList = compraDTOList;
+        this.descuento = descuento;
+    }
+
     public int getId() {
         return id;
     }
