@@ -53,7 +53,7 @@ public class CompraServiceImpl implements CompraService {
         }
     }
 
-    public List<CompraDTO> getByUsuarioId (Integer id){
+    public List<CompraDTO> getByUsuarioId(Integer id) {
         List<CompraEntity> compraEntityList = compraRepository.getByUsuarioId(id);
         List<CompraDTO> compraDTOList = new ArrayList<>();
 
@@ -62,8 +62,17 @@ public class CompraServiceImpl implements CompraService {
             List<VideojuegoDTO> videojuegosCompraDTOList = new ArrayList<>();
             for (CompraVideojuegoEntity videojuegoEntity : compraEntity.getCompraVideojuegoEntityList()) {
                 VideojuegoDTO videojuegoDTO = new VideojuegoDTO(
-                        videojuegoEntity.getId(),
-                        videojuegoEntity.getCantidad()
+                        videojuegoEntity.getVideojuego().getId(),
+                        videojuegoEntity.getCantidad(),
+                        videojuegoEntity.getVideojuego().getCodigoUnico(),
+                        videojuegoEntity.getVideojuego().getNombre(),
+                        videojuegoEntity.getVideojuego().getDescripcion(),
+                        videojuegoEntity.getVideojuego().getPrecio(),
+                        videojuegoEntity.getVideojuego().getImagen(),
+                        videojuegoEntity.getVideojuego().getCantidadCopias(),
+                        videojuegoEntity.getVideojuego().getCategoria(),
+                        compraDTOList,
+                        videojuegoEntity.getVideojuego().getDescuento()
                 );
                 videojuegosCompraDTOList.add(videojuegoDTO);
             }
@@ -108,7 +117,7 @@ public class CompraServiceImpl implements CompraService {
         for (CompraVideojuegoEntity compraVideojuego : compra.getCompraVideojuegoEntityList()) {
             List<CompraDTO> compraDTOList = new ArrayList<>();
             VideojuegoDTO videojuegoDTO = new VideojuegoDTO(
-            compraVideojuego.getVideojuego().getId(),
+                    compraVideojuego.getVideojuego().getId(),
                     compraVideojuego.getCantidad(),
                     compraVideojuego.getVideojuego().getCodigoUnico(),
                     compraVideojuego.getVideojuego().getNombre(),

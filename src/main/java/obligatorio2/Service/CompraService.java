@@ -12,5 +12,6 @@ public interface CompraService {
     List<CompraDTO> getAllCompraDTO();
     List<CompraEntity> getAll();
     public CompraDTO getCompraDTOById(Integer id);
+    List<CompraDTO> getByUsuarioId (Integer id);
 
 }

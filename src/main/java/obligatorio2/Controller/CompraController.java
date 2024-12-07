@@ -78,9 +78,9 @@ public class CompraController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CompraDTO> getCompraDTOById(@PathVariable Integer id) {
+    public ResponseEntity<List<CompraDTO>> getCompraDTOById(@PathVariable Integer id) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(compraService.getCompraDTOById(id));
+            return ResponseEntity.status(HttpStatus.OK).body(compraService.getByUsuarioId(id));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         } catch (Exception e) {
