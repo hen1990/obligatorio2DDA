@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @Controller
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://obg2henryemi.vercel.app")
 @RequestMapping("/administrador")
 public class AdministradorController {
 

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://obg2henryemi.vercel.app")
 @RequestMapping("/usuario")
 public class UsuarioController {
 

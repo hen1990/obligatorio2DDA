@@ -16,7 +16,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Controller
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://obg2henryemi.vercel.app")
 @RequestMapping("/videojuego")
 public class VideojuegoController {
 
